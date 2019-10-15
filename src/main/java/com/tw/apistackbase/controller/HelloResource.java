@@ -5,6 +5,7 @@ import com.tw.apistackbase.service.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.BindException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -35,6 +36,14 @@ public class HelloResource {
     public List<Employee> deleteEmployee(@RequestBody Employee employee) {
         EmployeeService employeeService = new EmployeeService(employeeList);
         employeeList.removeAll(employeeService.getEmployeesById(employee.getId()));
+        return  employeeList;
+    }
+
+    @PutMapping (path = "/update", consumes = "application/json", produces = "application/json")
+    public List<Employee> updateEmployee(@RequestBody Employee employee) {
+        EmployeeService employeeService = new EmployeeService(employeeList);
+        Employee currentEmployee = employeeService.getEmployeesById(employee.getId()).get(0);
+        employeeList.set(employeeList.indexOf(currentEmployee), employee);
         return  employeeList;
     }
 
