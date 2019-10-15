@@ -1,6 +1,7 @@
 package com.tw.apistackbase.controller;
 
 import com.tw.apistackbase.model.Employee;
+import com.tw.apistackbase.service.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,13 @@ public class HelloResource {
     @PostMapping(path = "/create", consumes = "application/json", produces = "application/json")
     public List<Employee> createEmployee(@RequestBody Employee employee) {
         employeeList.add(employee);
+        return  employeeList;
+    }
+
+    @PostMapping(path = "/delete", consumes = "application/json", produces = "application/json")
+    public List<Employee> deleteEmployee(@RequestBody Employee employee) {
+        EmployeeService employeeService = new EmployeeService(employeeList);
+        employeeList.removeAll(employeeService.getEmployeesById(employee.getId()));
         return  employeeList;
     }
 
