@@ -19,20 +19,12 @@ public class HelloResource {
     private final Logger log = Logger.getLogger(this.getClass().getName());
 
 
-    @GetMapping(path = "/{userName}", produces = {"application/json"})
-    public ResponseEntity<String> getAll(@PathVariable String userName) {
-
-        return ResponseEntity.ok("Hello:" + userName);
+    @GetMapping(path = "/viewAll", produces = {"application/json"})
+    public List<Employee> getAllEmployees() {
+        return employeeList;
     }
 
-//    @ResponseBody
-//    @GetMapping(path = "/test-response-body/{name}", produces = {"application/json"})
-//    public ResponseTransfer postResponseController (
-//            @RequestBody LoginForm loginForm) {
-//        return new ResponseTransfer("Thanks "+ loginForm.getUserName() +" For Requesting!!!");
-//    }
-
-    @PostMapping(path = "/create-employee", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/create", consumes = "application/json", produces = "application/json")
     public List<Employee> createEmployee(@RequestBody Employee employee) {
         employeeList.add(employee);
         return  employeeList;
