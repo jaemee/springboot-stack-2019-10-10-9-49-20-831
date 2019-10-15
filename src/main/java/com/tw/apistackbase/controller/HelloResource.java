@@ -1,10 +1,7 @@
 package com.tw.apistackbase.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.logging.Logger;
 
@@ -21,6 +18,18 @@ public class HelloResource {
     public ResponseEntity<String> getAll(@PathVariable String userName) {
 
         return ResponseEntity.ok("Hello:" + userName);
+    }
+
+    @ResponseBody
+    @GetMapping(path = "/test-response-body/{name}", produces = {"application/json"})
+    public ResponseTransfer postResponseController(@PathVariable String name) {
+        return new ResponseTransfer("Thanks "+ name +" For Posting!!!");
+    }
+
+    @PostMapping("/test-request-body")
+    public ResponseTransfer requestController(
+            @RequestBody LoginForm loginForm) {
+        return new ResponseTransfer("Thanks "+ loginForm.getUserName() +" For Requesting!!!");
     }
 
 
