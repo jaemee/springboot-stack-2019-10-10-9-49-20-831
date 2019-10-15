@@ -31,7 +31,7 @@ public class HelloResource {
         return  employeeList;
     }
 
-    @PostMapping(path = "/delete", consumes = "application/json", produces = "application/json")
+    @DeleteMapping(path = "/delete", consumes = "application/json", produces = "application/json")
     public List<Employee> deleteEmployee(@RequestBody Employee employee) {
         EmployeeService employeeService = new EmployeeService(employeeList);
         employeeList.removeAll(employeeService.getEmployeesById(employee.getId()));
