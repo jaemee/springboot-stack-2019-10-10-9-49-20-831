@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 public class HelloResource {
 
     private List<Employee> employeeList = new ArrayList<>();
+    private  EmployeeService employeeService = new EmployeeService(employeeList);
     private final Logger log = Logger.getLogger(this.getClass().getName());
 
 
@@ -28,8 +29,11 @@ public class HelloResource {
 
     @PostMapping(path = "/create", consumes = "application/json", produces = "application/json")
     public List<Employee> createEmployee(@RequestBody Employee employee) {
-        employeeList.add(employee);
-        return  employeeList;
+        if(employeeService.getEmployeesById(employee.getId())!=null){
+            employeeList.add(employee);
+            return employeeList;
+        }
+        return null;
     }
 
     @DeleteMapping(path = "/delete", consumes = "application/json", produces = "application/json")
